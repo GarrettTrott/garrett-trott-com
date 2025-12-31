@@ -230,50 +230,58 @@ pre > code {
   50% { transform: rotate3d(1, 1, 0, 5deg); }
 }
 
-/* Logo animation - shapes drift apart with rotation, then land back to original logo */
+/* Logo animation - shapes float away with rotation, hold at logo for 3s, long loop */
 .logo-container {
   overflow: visible;
 }
 
-.logo-shape-1 { animation: logo-drift-1 10s ease-in-out infinite; transform-origin: center; }
-.logo-shape-2 { animation: logo-drift-2 10s ease-in-out infinite; transform-origin: center; }
-.logo-shape-3 { animation: logo-drift-3 10s ease-in-out infinite; transform-origin: center; }
-.logo-shape-4 { animation: logo-drift-4 10s ease-in-out infinite; transform-origin: center; }
-.logo-shape-5 { animation: logo-drift-5 10s ease-in-out infinite; transform-origin: center; }
-.logo-shape-6 { animation: logo-drift-6 10s ease-in-out infinite; transform-origin: center; }
+.logo-shape-1 { animation: logo-drift-1 20s ease-in-out infinite; transform-origin: center; }
+.logo-shape-2 { animation: logo-drift-2 20s ease-in-out infinite; transform-origin: center; }
+.logo-shape-3 { animation: logo-drift-3 20s ease-in-out infinite; transform-origin: center; }
+.logo-shape-4 { animation: logo-drift-4 20s ease-in-out infinite; transform-origin: center; }
+.logo-shape-5 { animation: logo-drift-5 20s ease-in-out infinite; transform-origin: center; }
+.logo-shape-6 { animation: logo-drift-6 20s ease-in-out infinite; transform-origin: center; }
 
-/* Shape 1: Blue top-left - drifts up-left with clockwise rotation */
+/* 20s loop: 0-15% hold at logo (3s), 15-50% float away, 50-60% hold drifted, 60-100% float back */
+
+/* Shape 1: Blue top-left */
 @keyframes logo-drift-1 {
-  0%, 15%, 100% { transform: translate(0, 0) rotate(0deg); }
-  40%, 60% { transform: translate(-12px, -10px) rotate(25deg); }
+  0%, 15% { transform: translate(0, 0) rotate(0deg); }
+  50%, 60% { transform: translate(-18px, -14px) rotate(35deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
 }
 
-/* Shape 2: Cyan top-right - drifts up-right with counter-clockwise rotation */
+/* Shape 2: Cyan top-right */
 @keyframes logo-drift-2 {
-  0%, 15%, 100% { transform: translate(0, 0) rotate(0deg); }
-  40%, 60% { transform: translate(12px, -10px) rotate(-30deg); }
+  0%, 15% { transform: translate(0, 0) rotate(0deg); }
+  50%, 60% { transform: translate(18px, -14px) rotate(-40deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
 }
 
-/* Shape 3: Purple left side - drifts left with tilt */
+/* Shape 3: Purple left side */
 @keyframes logo-drift-3 {
-  0%, 15%, 100% { transform: translate(0, 0) rotate(0deg); }
-  40%, 60% { transform: translate(-14px, 5px) rotate(-20deg); }
+  0%, 15% { transform: translate(0, 0) rotate(0deg); }
+  50%, 60% { transform: translate(-20px, 8px) rotate(-28deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
 }
 
-/* Shape 4: Cyan right side - drifts right with opposite tilt */
+/* Shape 4: Cyan right side */
 @keyframes logo-drift-4 {
-  0%, 15%, 100% { transform: translate(0, 0) rotate(0deg); }
-  40%, 60% { transform: translate(14px, 5px) rotate(22deg); }
+  0%, 15% { transform: translate(0, 0) rotate(0deg); }
+  50%, 60% { transform: translate(20px, 8px) rotate(32deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
 }
 
-/* Shape 5: Purple smile center - drifts up with slight rotation */
+/* Shape 5: Purple smile center */
 @keyframes logo-drift-5 {
-  0%, 15%, 100% { transform: translate(0, 0) rotate(0deg); }
-  40%, 60% { transform: translate(3px, -8px) rotate(-15deg); }
+  0%, 15% { transform: translate(0, 0) rotate(0deg); }
+  50%, 60% { transform: translate(5px, -12px) rotate(-22deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
 }
 
-/* Shape 6: Purple bottom - drifts down with wobble */
+/* Shape 6: Purple bottom */
 @keyframes logo-drift-6 {
-  0%, 15%, 100% { transform: translate(0, 0) rotate(0deg); }
-  40%, 60% { transform: translate(-2px, 12px) rotate(18deg); }
+  0%, 15% { transform: translate(0, 0) rotate(0deg); }
+  50%, 60% { transform: translate(-4px, 18px) rotate(25deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
 }
