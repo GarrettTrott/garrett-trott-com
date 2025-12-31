@@ -235,53 +235,53 @@ pre > code {
   overflow: visible;
 }
 
-.logo-shape-1 { animation: logo-drift-1 20s ease-in-out infinite; transform-origin: center; }
-.logo-shape-2 { animation: logo-drift-2 20s ease-in-out infinite; transform-origin: center; }
-.logo-shape-3 { animation: logo-drift-3 20s ease-in-out infinite; transform-origin: center; }
-.logo-shape-4 { animation: logo-drift-4 20s ease-in-out infinite; transform-origin: center; }
-.logo-shape-5 { animation: logo-drift-5 20s ease-in-out infinite; transform-origin: center; }
-.logo-shape-6 { animation: logo-drift-6 20s ease-in-out infinite; transform-origin: center; }
+.logo-shape-1 { animation: logo-drift-1 30s ease-in-out infinite; transform-origin: center; }
+.logo-shape-2 { animation: logo-drift-2 30s ease-in-out infinite; transform-origin: center; }
+.logo-shape-3 { animation: logo-drift-3 30s ease-in-out infinite; transform-origin: center; }
+.logo-shape-4 { animation: logo-drift-4 30s ease-in-out infinite; transform-origin: center; }
+.logo-shape-5 { animation: logo-drift-5 30s ease-in-out infinite; transform-origin: center; }
+.logo-shape-6 { animation: logo-drift-6 30s ease-in-out infinite; transform-origin: center; }
 
-/* 20s loop: 0-15% hold at logo (3s), 15-50% float away, 50-60% hold drifted, 60-100% float back */
+/* 30s loop: 0-10% hold at logo (3s), 10-43% float away (10s), 43-50% hold drifted (2s), 50-83% float back (10s), 83-100% hold at logo */
 
 /* Shape 1: Blue top-left */
 @keyframes logo-drift-1 {
-  0%, 15% { transform: translate(0, 0) rotate(0deg); }
-  50%, 60% { transform: translate(-18px, -14px) rotate(35deg); }
-  100% { transform: translate(0, 0) rotate(0deg); }
+  0%, 10% { transform: translate(0, 0) rotate(0deg); }
+  43%, 50% { transform: translate(-18px, -14px) rotate(35deg); }
+  83%, 100% { transform: translate(0, 0) rotate(0deg); }
 }
 
 /* Shape 2: Cyan top-right */
 @keyframes logo-drift-2 {
-  0%, 15% { transform: translate(0, 0) rotate(0deg); }
-  50%, 60% { transform: translate(18px, -14px) rotate(-40deg); }
-  100% { transform: translate(0, 0) rotate(0deg); }
+  0%, 10% { transform: translate(0, 0) rotate(0deg); }
+  43%, 50% { transform: translate(18px, -14px) rotate(-40deg); }
+  83%, 100% { transform: translate(0, 0) rotate(0deg); }
 }
 
 /* Shape 3: Purple left side */
 @keyframes logo-drift-3 {
-  0%, 15% { transform: translate(0, 0) rotate(0deg); }
-  50%, 60% { transform: translate(-20px, 8px) rotate(-28deg); }
-  100% { transform: translate(0, 0) rotate(0deg); }
+  0%, 10% { transform: translate(0, 0) rotate(0deg); }
+  43%, 50% { transform: translate(-20px, 8px) rotate(-28deg); }
+  83%, 100% { transform: translate(0, 0) rotate(0deg); }
 }
 
 /* Shape 4: Cyan right side */
 @keyframes logo-drift-4 {
-  0%, 15% { transform: translate(0, 0) rotate(0deg); }
-  50%, 60% { transform: translate(20px, 8px) rotate(32deg); }
-  100% { transform: translate(0, 0) rotate(0deg); }
+  0%, 10% { transform: translate(0, 0) rotate(0deg); }
+  43%, 50% { transform: translate(20px, 8px) rotate(32deg); }
+  83%, 100% { transform: translate(0, 0) rotate(0deg); }
 }
 
 /* Shape 5: Purple smile center */
 @keyframes logo-drift-5 {
-  0%, 15% { transform: translate(0, 0) rotate(0deg); }
-  50%, 60% { transform: translate(5px, -12px) rotate(-22deg); }
-  100% { transform: translate(0, 0) rotate(0deg); }
+  0%, 10% { transform: translate(0, 0) rotate(0deg); }
+  43%, 50% { transform: translate(5px, -12px) rotate(-22deg); }
+  83%, 100% { transform: translate(0, 0) rotate(0deg); }
 }
 
 /* Shape 6: Purple bottom */
 @keyframes logo-drift-6 {
-  0%, 15% { transform: translate(0, 0) rotate(0deg); }
-  50%, 60% { transform: translate(-4px, 18px) rotate(25deg); }
-  100% { transform: translate(0, 0) rotate(0deg); }
+  0%, 10% { transform: translate(0, 0) rotate(0deg); }
+  43%, 50% { transform: translate(-4px, 18px) rotate(25deg); }
+  83%, 100% { transform: translate(0, 0) rotate(0deg); }
 }
