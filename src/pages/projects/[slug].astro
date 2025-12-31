@@ -1,0 +1,109 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import GlassBackground from '../../components/GlassBackground.astro';
+import { SITE_TITLE } from '../../consts';
+import { getProjects, getStrapiMediaUrl, type Project } from '../../lib/strapi';
+
+export async function getStaticPaths() {
+	try {
+		const response = await getProjects();
+		const projects = response.data || [];
+		return projects.map((project: any) => ({
+			params: { slug: project.slug || project.attributes?.slug },
+			props: { project: { ...project, ...project.attributes } },
+		}));
+	} catch (e) {
+		console.error('Failed to get static paths for projects:', e);
+		return [];
+	}
+}
+
+const { project } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="dark">
+	<head>
+		<BaseHead title={`${project.title} | ${SITE_TITLE}`} description={project.description} />
+	</head>
+	<body class="bg-black text-white min-h-screen antialiased">
+		<GlassBackground />
+		<Header />
+
+		<main class="relative z-10">
+			<article class="container py-12 max-w-3xl">
+				<a href="/projects" class="inline-flex items-center gap-2 text-sm text-white/50 hover:text-white/80 transition-colors mb-8">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+						<path d="m12 19-7-7 7-7"/>
+						<path d="M19 12H5"/>
+					</svg>
+					Back to Projects
+				</a>
+
+				{project.thumbnail && (
+					<div class="aspect-video overflow-hidden rounded-xl mb-8 bg-white/5 border border-white/5">
+						<img
+							src={getStrapiMediaUrl(project.thumbnail) || ''}
+							alt={project.title}
+							class="w-full h-full object-cover"
+						/>
+					</div>
+				)}
+
+				<header class="mb-8">
+					<h1 class="text-2xl font-semibold mb-3">{project.title}</h1>
+					<p class="text-white/50 mb-6">{project.description}</p>
+
+					<div class="flex flex-wrap items-center gap-4">
+						{project.technologies && project.technologies.length > 0 && (
+							<div class="flex flex-wrap gap-2">
+								{project.technologies.map((tech: string) => (
+									<span class="text-xs px-2.5 py-1 bg-white/5 border border-white/5 rounded-md text-white/60">{tech}</span>
+								))}
+							</div>
+						)}
+
+						<div class="flex gap-3 ml-auto">
+							{project.githubUrl && (
+								<a
+									href={project.githubUrl}
+									target="_blank"
+									rel="noopener"
+									class="inline-flex items-center gap-2 px-3 py-1.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-sm text-white/70 hover:text-white transition-all"
+								>
+									<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+										<path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+									</svg>
+									GitHub
+								</a>
+							)}
+							{project.liveUrl && (
+								<a
+									href={project.liveUrl}
+									target="_blank"
+									rel="noopener"
+									class="inline-flex items-center gap-2 px-3 py-1.5 bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/20 rounded-lg text-sm text-cyan-400 hover:text-cyan-300 transition-all"
+								>
+									Live Demo
+									<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+										<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+										<polyline points="15 3 21 3 21 9"/>
+										<line x1="10" x2="21" y1="14" y2="3"/>
+									</svg>
+								</a>
+							)}
+						</div>
+					</div>
+				</header>
+
+				{project.content && (
+					<div class="prose" set:html={project.content} />
+				)}
+			</article>
+		</main>
+
+		<Footer />
+	</body>
+</html>

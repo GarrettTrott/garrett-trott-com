@@ -1,0 +1,169 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import GlassBackground from '../components/GlassBackground.astro';
+import { SITE_TITLE } from '../consts';
+import { getResume, type Resume, type Experience, type Education, type Skill } from '../lib/strapi';
+
+let resume: Resume | null = null;
+let error: string | null = null;
+
+try {
+	const response = await getResume();
+	resume = response.data ? { ...response.data, ...(response.data as any).attributes } : null;
+} catch (e) {
+	error = 'Unable to load resume from CMS. Please ensure Strapi is running.';
+	console.error('Failed to fetch resume:', e);
+}
+
+function formatDate(dateStr: string): string {
+	if (!dateStr) return '';
+	const date = new Date(dateStr);
+	return date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+}
+
+function groupSkillsByCategory(skills: Skill[] = []): Record<string, Skill[]> {
+	return skills.reduce((acc, skill) => {
+		const category = skill.category || 'Other';
+		if (!acc[category]) acc[category] = [];
+		acc[category].push(skill);
+		return acc;
+	}, {} as Record<string, Skill[]>);
+}
+---
+
+<!doctype html>
+<html lang="en" class="dark">
+	<head>
+		<BaseHead title={`Resume | ${SITE_TITLE}`} description="Professional experience and skills" />
+	</head>
+	<body class="bg-black text-white min-h-screen antialiased">
+		<GlassBackground />
+		<Header />
+
+		<main class="relative z-10">
+			<section class="container py-12 max-w-3xl">
+				{error && (
+					<div class="rounded-xl border border-yellow-500/20 bg-yellow-500/5 p-4 mb-8">
+						<p class="text-sm text-yellow-200/80">{error}</p>
+					</div>
+				)}
+
+				{resume ? (
+					<div class="space-y-10">
+						<header class="text-center pb-8 border-b border-white/5">
+							<h1 class="text-2xl font-semibold mb-2">{resume.name}</h1>
+							<p class="text-lg text-white/50 mb-4">{resume.title}</p>
+							{resume.summary && (
+								<p class="text-white/40 max-w-xl mx-auto mb-6">{resume.summary}</p>
+							)}
+							<div class="flex flex-wrap justify-center gap-4 text-sm">
+								{resume.email && (
+									<a href={`mailto:${resume.email}`} class="text-white/50 hover:text-white/80 transition-colors">
+										{resume.email}
+									</a>
+								)}
+								{resume.location && (
+									<span class="text-white/40">{resume.location}</span>
+								)}
+								{resume.github && (
+									<a href={resume.github} target="_blank" rel="noopener" class="text-white/50 hover:text-white/80 transition-colors">
+										GitHub
+									</a>
+								)}
+								{resume.linkedin && (
+									<a href={resume.linkedin} target="_blank" rel="noopener" class="text-white/50 hover:text-white/80 transition-colors">
+										LinkedIn
+									</a>
+								)}
+							</div>
+						</header>
+
+						{resume.experience && resume.experience.length > 0 && (
+							<section>
+								<h2 class="text-lg font-medium mb-6 pb-2 border-b border-white/5">Experience</h2>
+								<div class="space-y-6">
+									{resume.experience.map((exp: Experience) => (
+										<article class="p-4 bg-white/[0.02] border border-white/5 rounded-xl">
+											<div class="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-2">
+												<div>
+													<h3 class="font-medium text-white/90">{exp.position}</h3>
+													<p class="text-white/50 text-sm">{exp.company}</p>
+												</div>
+												<time class="text-xs text-white/30 font-mono mt-1 sm:mt-0">
+													{formatDate(exp.startDate)} - {exp.current ? 'Present' : formatDate(exp.endDate || '')}
+												</time>
+											</div>
+											{exp.description && (
+												<p class="text-sm text-white/40 mb-3">{exp.description}</p>
+											)}
+											{exp.achievements && exp.achievements.length > 0 && (
+												<ul class="text-sm space-y-1 list-disc list-inside text-white/40">
+													{exp.achievements.map((achievement: string) => (
+														<li>{achievement}</li>
+													))}
+												</ul>
+											)}
+										</article>
+									))}
+								</div>
+							</section>
+						)}
+
+						{resume.education && resume.education.length > 0 && (
+							<section>
+								<h2 class="text-lg font-medium mb-6 pb-2 border-b border-white/5">Education</h2>
+								<div class="space-y-4">
+									{resume.education.map((edu: Education) => (
+										<article class="p-4 bg-white/[0.02] border border-white/5 rounded-xl">
+											<div class="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-1">
+												<div>
+													<h3 class="font-medium text-white/90">{edu.degree} in {edu.field}</h3>
+													<p class="text-white/50 text-sm">{edu.institution}</p>
+												</div>
+												<time class="text-xs text-white/30 font-mono mt-1 sm:mt-0">
+													{formatDate(edu.startDate || '')} - {formatDate(edu.endDate || '')}
+												</time>
+											</div>
+											{edu.description && (
+												<p class="text-sm text-white/40">{edu.description}</p>
+											)}
+										</article>
+									))}
+								</div>
+							</section>
+						)}
+
+						{resume.skills && resume.skills.length > 0 && (
+							<section>
+								<h2 class="text-lg font-medium mb-6 pb-2 border-b border-white/5">Skills</h2>
+								<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+									{Object.entries(groupSkillsByCategory(resume.skills)).map(([category, skills]) => (
+										<div>
+											<h3 class="font-medium text-sm text-white/60 mb-3">{category}</h3>
+											<div class="flex flex-wrap gap-2">
+												{skills.map((skill: Skill) => (
+													<span class="text-xs px-2.5 py-1 bg-white/5 border border-white/5 rounded-md text-white/50">{skill.name}</span>
+												))}
+											</div>
+										</div>
+									))}
+								</div>
+							</section>
+						)}
+					</div>
+				) : !error && (
+					<div class="p-8 border border-dashed border-white/10 rounded-xl text-center">
+						<p class="text-white/40 mb-4">Resume not configured yet. Add your resume data through the Strapi CMS.</p>
+						<a href="http://localhost:1337/admin" class="inline-block px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-sm text-white/70 hover:text-white transition-all">
+							Open Strapi Admin
+						</a>
+					</div>
+				)}
+			</section>
+		</main>
+
+		<Footer />
+	</body>
+</html>

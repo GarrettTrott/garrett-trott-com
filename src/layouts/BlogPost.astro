@@ -1,0 +1,62 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import GlassBackground from '../components/GlassBackground.astro';
+
+type Props = CollectionEntry<'blog'>['data'];
+
+const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+---
+
+<html lang="en" class="dark">
+	<head>
+		<BaseHead title={title} description={description} />
+	</head>
+
+	<body class="bg-black text-white min-h-screen antialiased">
+		<GlassBackground />
+		<Header />
+
+		<main class="relative z-10">
+			<article class="container py-12 max-w-3xl">
+				<a href="/posts" class="inline-flex items-center gap-2 text-sm text-white/50 hover:text-white/80 transition-colors mb-8">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+						<path d="m12 19-7-7 7-7"/>
+						<path d="M19 12H5"/>
+					</svg>
+					Back to Posts
+				</a>
+
+				{heroImage && (
+					<div class="aspect-video overflow-hidden rounded-xl mb-8 bg-white/5 border border-white/5">
+						<Image width={1020} height={510} src={heroImage} alt="" class="w-full h-full object-cover" />
+					</div>
+				)}
+
+				<header class="mb-8">
+					<time class="text-sm text-white/40 font-mono mb-3 block">
+						{pubDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+					</time>
+					{updatedDate && (
+						<p class="text-xs text-white/30 italic mb-3">
+							Updated {updatedDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+						</p>
+					)}
+					<h1 class="text-2xl font-semibold mb-3">{title}</h1>
+					{description && (
+						<p class="text-white/50">{description}</p>
+					)}
+				</header>
+
+				<div class="prose">
+					<slot />
+				</div>
+			</article>
+		</main>
+
+		<Footer />
+	</body>
+</html>

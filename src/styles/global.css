@@ -1,0 +1,286 @@
+@import "tailwindcss";
+
+/* JetBrains Mono */
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('https://fonts.gstatic.com/s/jetbrainsmono/v18/tDbY2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKxjPVmUsaaDhw.woff2') format('woff2');
+  font-weight: 100 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Geist */
+@font-face {
+  font-family: 'Geist';
+  src: url('/fonts/GeistVF.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Tailwind Theme */
+@theme {
+  --font-sans: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+}
+
+/* Base */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: #000;
+  color: #fff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Container */
+.container {
+  width: 100%;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .container {
+    padding: 0 2rem;
+  }
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
+
+/* Links */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Code */
+code {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  background: rgba(255,255,255,0.06);
+  padding: 0.15em 0.4em;
+  border-radius: 0.25rem;
+}
+
+pre {
+  font-family: var(--font-mono);
+  background: rgba(255,255,255,0.03);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(255,255,255,0.06);
+  overflow-x: auto;
+}
+
+pre > code {
+  background: none;
+  padding: 0;
+}
+
+/* Prose */
+.prose {
+  max-width: 65ch;
+  line-height: 1.75;
+  color: rgba(255,255,255,0.7);
+}
+
+.prose p {
+  margin-bottom: 1.25em;
+}
+
+.prose h2 {
+  color: #fff;
+  margin-top: 2.5em;
+  margin-bottom: 1em;
+}
+
+.prose h3 {
+  color: #fff;
+  margin-top: 2em;
+  margin-bottom: 0.75em;
+}
+
+.prose a {
+  color: #29dfff;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.prose a:hover {
+  color: #7d5fff;
+}
+
+.prose ul, .prose ol {
+  padding-left: 1.5em;
+  margin-bottom: 1.25em;
+}
+
+.prose li {
+  margin-bottom: 0.5em;
+}
+
+.prose blockquote {
+  border-left: 2px solid rgba(255,255,255,0.1);
+  padding-left: 1em;
+  margin: 1.5em 0;
+  color: rgba(255,255,255,0.5);
+  font-style: italic;
+}
+
+.prose img {
+  border-radius: 0.5rem;
+  margin: 2em 0;
+}
+
+.prose strong {
+  color: #fff;
+}
+
+/* Utilities */
+.line-clamp-1 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+
+.line-clamp-2 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+/* Focus */
+:focus-visible {
+  outline: 2px solid #7d5fff;
+  outline-offset: 2px;
+}
+
+/* Selection */
+::selection {
+  background: rgba(125, 95, 255, 0.3);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.1);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+/* Global floating glass background */
+.glass-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.glass-shape {
+  position: absolute;
+  pointer-events: none;
+}
+
+.glass-shape svg {
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0) rotate3d(1, 0.5, 0.2, 0deg); }
+  50% { transform: translateY(-30px) rotate3d(1, 0.5, 0.2, 8deg); }
+}
+
+@keyframes float-med {
+  0%, 100% { transform: translateY(0) rotate3d(0.5, 1, 0.3, 0deg); }
+  50% { transform: translateY(25px) rotate3d(0.5, 1, 0.3, -6deg); }
+}
+
+@keyframes drift-diagonal {
+  0%, 100% { transform: translate(0, 0) rotate3d(0.3, 0.8, 0.5, 0deg); }
+  50% { transform: translate(20px, -15px) rotate3d(0.3, 0.8, 0.5, 10deg); }
+}
+
+@keyframes subtle-rotate {
+  0%, 100% { transform: rotate3d(1, 1, 0, 0deg); }
+  50% { transform: rotate3d(1, 1, 0, 5deg); }
+}
+
+/* Logo animation - shapes drift apart and back */
+.logo-container {
+  overflow: visible;
+}
+
+.logo-shape-1 {
+  animation: logo-drift-1 10s ease-in-out infinite;
+}
+
+.logo-shape-2 {
+  animation: logo-drift-2 10s ease-in-out infinite;
+}
+
+.logo-shape-3 {
+  animation: logo-drift-3 10s ease-in-out infinite;
+}
+
+.logo-shape-4 {
+  animation: logo-drift-4 10s ease-in-out infinite;
+}
+
+.logo-shape-5 {
+  animation: logo-drift-5 10s ease-in-out infinite;
+}
+
+/* Shape 1 (blue, bottom-left): drifts left and down */
+@keyframes logo-drift-1 {
+  0%, 15%, 100% { transform: translate(0, 0); }
+  50%, 65% { transform: translate(-12px, 8px); }
+}
+
+/* Shape 2 (cyan, top-right): drifts right and up */
+@keyframes logo-drift-2 {
+  0%, 15%, 100% { transform: translate(0, 0); }
+  50%, 65% { transform: translate(14px, -10px); }
+}
+
+/* Shape 3 (purple smile, bottom): drifts down */
+@keyframes logo-drift-3 {
+  0%, 15%, 100% { transform: translate(0, 0); }
+  50%, 65% { transform: translate(0, 15px); }
+}
+
+/* Shape 4 (small accent, top-right): drifts up-right */
+@keyframes logo-drift-4 {
+  0%, 15%, 100% { transform: translate(0, 0); }
+  50%, 65% { transform: translate(10px, -12px); }
+}
+
+/* Shape 5 (tiny accent, bottom-right): drifts down-right */
+@keyframes logo-drift-5 {
+  0%, 15%, 100% { transform: translate(0, 0); }
+  50%, 65% { transform: translate(8px, 10px); }
+}

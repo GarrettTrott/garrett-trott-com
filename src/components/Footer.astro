@@ -1,0 +1,26 @@
+---
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="border-t border-white/5 mt-auto">
+	<div class="container py-8">
+		<div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+			<div class="flex items-center gap-3">
+				<img src="/logo.svg" alt="" class="w-6 h-6 opacity-50" />
+				<span class="text-white/30 font-mono text-xs">
+					&copy; {currentYear} garrett trott
+				</span>
+			</div>
+
+			<div class="flex items-center gap-4 text-white/30 font-mono text-xs">
+				<a href="/posts" class="hover:text-white/60 transition-colors">./posts</a>
+				<a href="/projects" class="hover:text-white/60 transition-colors">./projects</a>
+				<a href="/about" class="hover:text-white/60 transition-colors">whoami</a>
+				<span class="text-white/10">|</span>
+				<a href="https://github.com/garretttrott" target="_blank" class="hover:text-white/60 transition-colors">gh</a>
+				<a href="https://www.linkedin.com/in/garrett-trott/" target="_blank" class="hover:text-white/60 transition-colors">in</a>
+				<a href="mailto:dev@garrett-trott.com" class="hover:text-white/60 transition-colors">mail</a>
+			</div>
+		</div>
+	</div>
+</footer>

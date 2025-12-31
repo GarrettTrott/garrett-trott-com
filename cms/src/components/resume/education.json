@@ -1,0 +1,31 @@
+{
+  "collectionName": "components_resume_educations",
+  "info": {
+    "displayName": "Education",
+    "description": "Education entry"
+  },
+  "options": {},
+  "attributes": {
+    "institution": {
+      "type": "string",
+      "required": true
+    },
+    "degree": {
+      "type": "string",
+      "required": true
+    },
+    "field": {
+      "type": "string",
+      "required": true
+    },
+    "startDate": {
+      "type": "date"
+    },
+    "endDate": {
+      "type": "date"
+    },
+    "description": {
+      "type": "text"
+    }
+  }
+}

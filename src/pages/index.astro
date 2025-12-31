@@ -1,0 +1,135 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import GlassBackground from '../components/GlassBackground.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { getProjects, getStrapiMediaUrl, type Project } from '../lib/strapi';
+import { getCollection } from 'astro:content';
+
+let projects: Project[] = [];
+try {
+	const response = await getProjects();
+	projects = (response.data || [])
+		.map((item: any) => ({ ...item, ...item.attributes }))
+		.slice(0, 6);
+} catch (e) {
+	console.error('Failed to fetch projects:', e);
+}
+
+const posts = (await getCollection('blog'))
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+	.slice(0, 8);
+---
+
+<!doctype html>
+<html lang="en" class="dark">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+	</head>
+	<body class="bg-black text-white min-h-screen antialiased">
+		<GlassBackground />
+		<Header />
+
+		<main class="relative z-10">
+			<!-- Posts -->
+			<section class="container pt-10 pb-8">
+				<div class="flex items-center justify-between mb-5">
+					<div class="flex items-center gap-2 text-white/50 font-mono text-sm">
+						<span class="text-cyan-400">$</span>
+						<span>ls ./posts</span>
+					</div>
+					<a href="/posts" class="text-xs text-white/30 hover:text-white/50 font-mono transition-colors">
+						--all →
+					</a>
+				</div>
+
+				{posts.length > 0 ? (
+					<div class="space-y-3">
+						{posts.map((post) => (
+							<a href={`/posts/${post.id}/`} class="group block">
+								<div class="flex gap-4 p-3 bg-white/[0.02] hover:bg-white/[0.04] border border-white/5 hover:border-white/10 rounded-lg transition-all">
+									{post.data.heroImage && (
+										<div class="w-24 sm:w-32 flex-shrink-0 aspect-[4/3] rounded bg-white/5 overflow-hidden">
+											<img
+												src={post.data.heroImage.src}
+												alt=""
+												class="w-full h-full object-cover opacity-70 group-hover:opacity-100 transition-opacity"
+											/>
+										</div>
+									)}
+									<div class="flex-1 min-w-0 py-0.5">
+										<div class="flex items-center gap-2 mb-1">
+											<span class="text-cyan-400/50 font-mono text-xs">→</span>
+											<h3 class="font-mono text-sm text-white/80 group-hover:text-white transition-colors truncate">
+												{post.data.title}
+											</h3>
+										</div>
+										<p class="text-xs text-white/35 line-clamp-2 mb-2 pl-5">
+											{post.data.description}
+										</p>
+										<time class="text-[10px] text-white/25 font-mono pl-5">
+											{post.data.pubDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+										</time>
+									</div>
+								</div>
+							</a>
+						))}
+					</div>
+				) : (
+					<div class="p-4 border border-dashed border-white/10 rounded-lg text-center">
+						<p class="text-white/30 font-mono text-xs">drwxr-xr-x 0 items</p>
+					</div>
+				)}
+			</section>
+
+			<!-- Projects -->
+			<section class="container py-8 pb-16">
+				<div class="flex items-center justify-between mb-5">
+					<div class="flex items-center gap-2 text-white/50 font-mono text-sm">
+						<span class="text-cyan-400">$</span>
+						<span>ls ./projects</span>
+					</div>
+					<a href="/projects" class="text-xs text-white/30 hover:text-white/50 font-mono transition-colors">
+						--all →
+					</a>
+				</div>
+
+				{projects.length > 0 ? (
+					<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+						{projects.map((project) => (
+							<a href={`/projects/${project.slug}`} class="group block p-3 bg-white/[0.02] hover:bg-white/[0.04] border border-white/5 hover:border-white/10 rounded-lg transition-all">
+								{project.thumbnail && (
+									<div class="aspect-video rounded bg-white/5 overflow-hidden mb-2">
+										<img
+											src={getStrapiMediaUrl(project.thumbnail) || '/placeholder.jpg'}
+											alt=""
+											class="w-full h-full object-cover opacity-70 group-hover:opacity-100 transition-opacity"
+										/>
+									</div>
+								)}
+								<div class="flex items-center gap-2 mb-1">
+									<span class="text-purple-400/50 font-mono text-xs">./</span>
+									<h3 class="font-mono text-sm text-white/80 group-hover:text-white transition-colors truncate">
+										{project.title}
+									</h3>
+								</div>
+								{project.description && (
+									<p class="text-xs text-white/35 line-clamp-2 pl-5">
+										{project.description}
+									</p>
+								)}
+							</a>
+						))}
+					</div>
+				) : (
+					<div class="p-4 border border-dashed border-white/10 rounded-lg text-center">
+						<p class="text-white/30 font-mono text-xs">drwxr-xr-x 0 items</p>
+					</div>
+				)}
+			</section>
+		</main>
+
+		<Footer />
+	</body>
+</html>

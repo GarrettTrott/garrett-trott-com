@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_resume_skills",
+  "info": {
+    "displayName": "Skill",
+    "description": "Skill entry"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "category": {
+      "type": "string",
+      "required": true
+    },
+    "level": {
+      "type": "integer",
+      "min": 1,
+      "max": 5
+    }
+  }
+}

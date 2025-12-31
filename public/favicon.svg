@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <rect width="32" height="32" rx="6" fill="#000"/>
+
+  <defs>
+    <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a98fff" stop-opacity="0.55"/>
+      <stop offset="50%" stop-color="#7d5fff" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#2f1b72" stop-opacity="0.1"/>
+    </linearGradient>
+    <linearGradient id="g2" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#7aeeff" stop-opacity="0.5"/>
+      <stop offset="50%" stop-color="#29dfff" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#0ab3d6" stop-opacity="0.08"/>
+    </linearGradient>
+    <linearGradient id="g3" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#6bb8ff" stop-opacity="0.45"/>
+      <stop offset="50%" stop-color="#188bff" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#0a5eb8" stop-opacity="0.06"/>
+    </linearGradient>
+    <linearGradient id="sh" x1="0%" y1="0%" x2="60%" y2="60%">
+      <stop offset="0%" stop-color="#fff" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="gl" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="0.8"/>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Curved shape 1 - blue -->
+  <g filter="url(#gl)" transform="translate(3, 10) rotate(-8, 10, 10) scale(0.22)">
+    <path d="M28.46 49.14a38.63 38.63 0 0 1-18.11-5.65c-2.15-1.31-3-2.6-1.37-5a82.06 82.06 0 0 0 4.4-7.18c1.51-2.7 3.12-3 5.92-1.39 9.61 5.52 19.13 4 26.6-4.14 5-5.42 6-11.93 4.34-18.8-.74-3.08.14-4.31 3-4.91C55.11 1.71 57 1.05 58.88.59c5.4-1.29 6.21-.76 7.27 4.51 4.57 22.83-12.93 44.08-37.69 44.04z" fill="url(#g3)"/>
+    <path d="M28.46 49.14a38.63 38.63 0 0 1-18.11-5.65c-2.15-1.31-3-2.6-1.37-5a82.06 82.06 0 0 0 4.4-7.18c1.51-2.7 3.12-3 5.92-1.39 9.61 5.52 19.13 4 26.6-4.14 5-5.42 6-11.93 4.34-18.8-.74-3.08.14-4.31 3-4.91C55.11 1.71 57 1.05 58.88.59c5.4-1.29 6.21-.76 7.27 4.51 4.57 22.83-12.93 44.08-37.69 44.04z" fill="url(#sh)"/>
+  </g>
+
+  <!-- Curved shape 2 - cyan -->
+  <g filter="url(#gl)" transform="translate(14, 5) rotate(15, 10, 8) scale(0.18)">
+    <path d="M120.47 49.1c-23.62-.62-40.9-20.87-35.89-45C85.44 0 86.32-.52 90.44.38c2.51.55 5 1.32 7.47 1.94s3 1.84 2.44 4.31c-3 13.7 4.4 24.47 18.15 26.5a19 19 0 0 0 13.27-3.24c2.28-1.47 3.76-1.21 5.1 1.06q2.24 3.78 4.64 7.47c1.5 2.32.64 3.68-1.51 5a39.74 39.74 0 0 1-19.53 5.68z" fill="url(#g2)" transform="translate(-80, 0)"/>
+    <path d="M120.47 49.1c-23.62-.62-40.9-20.87-35.89-45C85.44 0 86.32-.52 90.44.38c2.51.55 5 1.32 7.47 1.94s3 1.84 2.44 4.31c-3 13.7 4.4 24.47 18.15 26.5a19 19 0 0 0 13.27-3.24c2.28-1.47 3.76-1.21 5.1 1.06q2.24 3.78 4.64 7.47c1.5 2.32.64 3.68-1.51 5a39.74 39.74 0 0 1-19.53 5.68z" fill="url(#sh)" transform="translate(-80, 0)"/>
+  </g>
+
+  <!-- Curved shape 3 - purple smile -->
+  <g filter="url(#gl)" transform="translate(7, 16) rotate(5, 12, 10) scale(0.2)">
+    <path d="M75.79 99.76a36.88 36.88 0 0 1-35.55-25.13c-1.07-3.18-.53-4.74 3-5.27 2.9-.44 5.72-1.32 8.57-2 2-.49 3 .08 3.82 2.16 3.43 9 10.41 13.93 19.47 14 9.36.07 16-4.55 19.77-14 .89-2.23 2.08-2.69 4.2-2.14 2.84.74 5.72 1.34 8.57 2 4.15 1 4.3 1.33 2.88 5.51a37.15 37.15 0 0 1-34.73 24.87z" fill="url(#g1)" transform="translate(-30, -55)"/>
+    <path d="M75.79 99.76a36.88 36.88 0 0 1-35.55-25.13c-1.07-3.18-.53-4.74 3-5.27 2.9-.44 5.72-1.32 8.57-2 2-.49 3 .08 3.82 2.16 3.43 9 10.41 13.93 19.47 14 9.36.07 16-4.55 19.77-14 .89-2.23 2.08-2.69 4.2-2.14 2.84.74 5.72 1.34 8.57 2 4.15 1 4.3 1.33 2.88 5.51a37.15 37.15 0 0 1-34.73 24.87z" fill="url(#sh)" transform="translate(-30, -55)"/>
+  </g>
+</svg>
