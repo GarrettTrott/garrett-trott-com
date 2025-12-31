@@ -230,57 +230,50 @@ pre > code {
   50% { transform: rotate3d(1, 1, 0, 5deg); }
 }
 
-/* Logo animation - shapes drift apart and back */
+/* Logo animation - shapes drift apart from center and back to original logo */
 .logo-container {
   overflow: visible;
 }
 
-.logo-shape-1 {
-  animation: logo-drift-1 10s ease-in-out infinite;
-}
+.logo-shape-1 { animation: logo-drift-1 8s ease-in-out infinite; }
+.logo-shape-2 { animation: logo-drift-2 8s ease-in-out infinite; }
+.logo-shape-3 { animation: logo-drift-3 8s ease-in-out infinite; }
+.logo-shape-4 { animation: logo-drift-4 8s ease-in-out infinite; }
+.logo-shape-5 { animation: logo-drift-5 8s ease-in-out infinite; }
+.logo-shape-6 { animation: logo-drift-6 8s ease-in-out infinite; }
 
-.logo-shape-2 {
-  animation: logo-drift-2 10s ease-in-out infinite;
-}
-
-.logo-shape-3 {
-  animation: logo-drift-3 10s ease-in-out infinite;
-}
-
-.logo-shape-4 {
-  animation: logo-drift-4 10s ease-in-out infinite;
-}
-
-.logo-shape-5 {
-  animation: logo-drift-5 10s ease-in-out infinite;
-}
-
-/* Shape 1 (blue, bottom-left): drifts left and down */
+/* Shape 1: Blue top-left - drifts up-left */
 @keyframes logo-drift-1 {
-  0%, 15%, 100% { transform: translate(0, 0); }
-  50%, 65% { transform: translate(-12px, 8px); }
+  0%, 20%, 100% { transform: translate(0, 0); }
+  45%, 55% { transform: translate(-8px, -6px); }
 }
 
-/* Shape 2 (cyan, top-right): drifts right and up */
+/* Shape 2: Cyan top-right - drifts up-right */
 @keyframes logo-drift-2 {
-  0%, 15%, 100% { transform: translate(0, 0); }
-  50%, 65% { transform: translate(14px, -10px); }
+  0%, 20%, 100% { transform: translate(0, 0); }
+  45%, 55% { transform: translate(8px, -6px); }
 }
 
-/* Shape 3 (purple smile, bottom): drifts down */
+/* Shape 3: Purple left side - drifts left */
 @keyframes logo-drift-3 {
-  0%, 15%, 100% { transform: translate(0, 0); }
-  50%, 65% { transform: translate(0, 15px); }
+  0%, 20%, 100% { transform: translate(0, 0); }
+  45%, 55% { transform: translate(-10px, 0); }
 }
 
-/* Shape 4 (small accent, top-right): drifts up-right */
+/* Shape 4: Cyan right side - drifts right */
 @keyframes logo-drift-4 {
-  0%, 15%, 100% { transform: translate(0, 0); }
-  50%, 65% { transform: translate(10px, -12px); }
+  0%, 20%, 100% { transform: translate(0, 0); }
+  45%, 55% { transform: translate(10px, 0); }
 }
 
-/* Shape 5 (tiny accent, bottom-right): drifts down-right */
+/* Shape 5: Purple smile center - drifts up slightly */
 @keyframes logo-drift-5 {
-  0%, 15%, 100% { transform: translate(0, 0); }
-  50%, 65% { transform: translate(8px, 10px); }
+  0%, 20%, 100% { transform: translate(0, 0); }
+  45%, 55% { transform: translate(0, -5px); }
+}
+
+/* Shape 6: Purple bottom - drifts down */
+@keyframes logo-drift-6 {
+  0%, 20%, 100% { transform: translate(0, 0); }
+  45%, 55% { transform: translate(0, 8px); }
 }
