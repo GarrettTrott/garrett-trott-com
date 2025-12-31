@@ -28,12 +28,42 @@ const posts = (await getCollection('blog')).sort(
 				</div>
 
 				{posts.length > 0 ? (
-					<div class="space-y-4">
-						{posts.map((post) => (
+					<div class="space-y-6">
+						{/* Featured post - most recent */}
+						{posts.length > 0 && (
+							<a href={`/posts/${posts[0].id}/`} class="group block p-5 bg-white/[0.02] hover:bg-white/[0.04] border border-white/5 hover:border-white/10 rounded-xl transition-all">
+								<div class="flex flex-col sm:flex-row gap-5">
+									{posts[0].data.heroImage && (
+										<div class="w-full sm:w-64 md:w-80 flex-shrink-0 aspect-[16/9] rounded-lg bg-white/5 overflow-hidden">
+											<img
+												src={posts[0].data.heroImage.src}
+												alt=""
+												class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity"
+											/>
+										</div>
+									)}
+									<div class="flex-1 min-w-0 py-1">
+										<span class="inline-block text-[10px] uppercase tracking-wider text-cyan-400/80 font-mono mb-2">Featured</span>
+										<h2 class="text-xl font-medium text-white/90 group-hover:text-white transition-colors mb-2">
+											{posts[0].data.title}
+										</h2>
+										<p class="text-sm text-white/40 line-clamp-3 mb-3">
+											{posts[0].data.description}
+										</p>
+										<time class="text-xs text-white/30 font-mono">
+											{posts[0].data.pubDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+										</time>
+									</div>
+								</div>
+							</a>
+						)}
+
+						{/* Remaining posts - alternating alignment */}
+						{posts.slice(1).map((post, index) => (
 							<a href={`/posts/${post.id}/`} class="group block p-4 bg-white/[0.02] hover:bg-white/[0.04] border border-white/5 hover:border-white/10 rounded-xl transition-all">
-								<div class="flex gap-4">
+								<div class={`flex flex-col sm:flex-row gap-4 ${index % 2 === 1 ? 'sm:flex-row-reverse' : ''}`}>
 									{post.data.heroImage && (
-										<div class="w-32 sm:w-44 flex-shrink-0 aspect-[4/3] rounded-lg bg-white/5 overflow-hidden">
+										<div class="w-full sm:w-40 md:w-48 flex-shrink-0 aspect-[4/3] rounded-lg bg-white/5 overflow-hidden">
 											<img
 												src={post.data.heroImage.src}
 												alt=""
@@ -41,7 +71,7 @@ const posts = (await getCollection('blog')).sort(
 											/>
 										</div>
 									)}
-									<div class="flex-1 min-w-0 py-1">
+									<div class={`flex-1 min-w-0 py-1 ${index % 2 === 1 ? 'sm:text-right' : ''}`}>
 										<h2 class="font-medium text-white/90 group-hover:text-white transition-colors mb-1.5">
 											{post.data.title}
 										</h2>
