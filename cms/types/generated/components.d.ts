@@ -40,7 +40,10 @@ export interface ResumeSkill extends Struct.ComponentSchema {
     displayName: 'Skill';
   };
   attributes: {
-    category: Schema.Attribute.String & Schema.Attribute.Required;
+    category: Schema.Attribute.Enumeration<
+      ['Software', 'Hardware', 'Building Systems', 'Audio']
+    > &
+      Schema.Attribute.Required;
     level: Schema.Attribute.Integer &
       Schema.Attribute.SetMinMax<
         {

@@ -72,7 +72,8 @@ export async function getResume() {
 
 export async function getBlogPosts() {
   return fetchFromStrapi<StrapiResponse<StrapiEntity<BlogPost>[]>>('/blog-posts', {
-    'populate': '*',
+    'populate[coverImage]': '*',
+    'populate[topics]': '*',
     'sort': 'publishedAt:desc',
   });
 }
@@ -80,7 +81,14 @@ export async function getBlogPosts() {
 export async function getBlogPost(slug: string) {
   return fetchFromStrapi<StrapiResponse<StrapiEntity<BlogPost>[]>>('/blog-posts', {
     'filters[slug][$eq]': slug,
-    'populate': '*',
+    'populate[coverImage]': '*',
+    'populate[topics]': '*',
+  });
+}
+
+export async function getTopics() {
+  return fetchFromStrapi<StrapiResponse<StrapiEntity<Topic>[]>>('/topics', {
+    'sort': 'name:asc',
   });
 }
 
@@ -133,11 +141,20 @@ export interface Education {
   description?: string;
 }
 
+export type SkillCategory = 'Software' | 'Hardware' | 'Building Systems' | 'Audio';
+
 export interface Skill {
   id: number;
   name: string;
-  category: string;
+  category: SkillCategory;
   level?: number;
+}
+
+export interface Topic {
+  id: number;
+  name: string;
+  slug: string;
+  color?: string;
 }
 
 export interface BlogPost {
@@ -149,6 +166,8 @@ export interface BlogPost {
   publishedAt: string;
   createdAt: string;
   updatedAt: string;
+  topics?: Topic[];
+  featured: boolean;
 }
 
 export interface StrapiMedia {

@@ -1,0 +1,14 @@
+node_modules
+.git
+.gitignore
+.env
+.env.*
+!.env.example
+dist
+.astro
+*.md
+.claude
+.tmp
+cms/node_modules
+cms/.tmp
+cms/dist
