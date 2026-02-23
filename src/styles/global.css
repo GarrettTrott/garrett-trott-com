@@ -77,14 +77,30 @@ pre {
   font-family: var(--font-mono);
   background: rgba(255,255,255,0.03);
   padding: 1rem;
-  border-radius: 0.5rem;
-  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 0.75rem;
+  border: 1px solid rgba(255,255,255,0.1);
   overflow-x: auto;
 }
 
 pre > code {
   background: none;
   padding: 0;
+}
+
+/* Code block wrapper with language label */
+.prose .code-block {
+  position: relative;
+  margin: 1.5em 0;
+}
+
+.prose .code-block .lang-label {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.3);
+  font-family: var(--font-mono);
 }
 
 /* Prose */
@@ -138,8 +154,61 @@ pre > code {
 }
 
 .prose img {
-  border-radius: 0.5rem;
+  border-radius: 0.75rem;
+  margin: 2em auto;
+  border: 1px solid rgba(255,255,255,0.1);
+  max-width: 100%;
+}
+
+.prose video {
+  border-radius: 0.75rem;
+  margin: 2em auto;
+  border: 1px solid rgba(255,255,255,0.1);
+  max-width: 100%;
+  display: block;
+}
+
+.prose figure {
   margin: 2em 0;
+}
+
+.prose figcaption {
+  text-align: center;
+  font-size: 0.875rem;
+  color: rgba(255,255,255,0.4);
+  margin-top: 0.75rem;
+}
+
+.prose table {
+  width: 100%;
+  margin: 1.5em 0;
+  font-size: 0.875rem;
+  border-collapse: collapse;
+}
+
+.prose thead {
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+.prose th {
+  text-align: left;
+  color: rgba(255,255,255,0.6);
+  font-weight: 500;
+  padding: 0.5rem 0.75rem;
+}
+
+.prose td {
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.prose tbody tr:hover {
+  background: rgba(255,255,255,0.02);
+}
+
+.prose hr {
+  margin: 2em 0;
+  border-color: rgba(255,255,255,0.1);
 }
 
 .prose strong {

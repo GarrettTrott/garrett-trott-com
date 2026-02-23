@@ -4,66 +4,64 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Personal portfolio/blog site built with Astro (frontend) and Strapi (headless CMS). The site displays projects, blog posts, and a resume, all managed through Strapi's admin interface.
+Personal portfolio/blog site built with Astro. Blog posts are authored as markdown files in an Obsidian vault (`site-content/` folder), projects and resume are defined as static TypeScript data.
 
 ## Development Commands
 
 ```bash
-# Run Astro frontend only (port 4321)
+# Run Astro dev server (port 4321)
 npm run dev
 
-# Run Strapi CMS only (port 1337)
-npm run dev:cms
-
-# Run both Astro and Strapi concurrently
-npm run dev:all
-
-# Build Astro for production
+# Build for production
 npm run build
 
 # Preview production build
 npm run preview
 ```
 
-### Strapi CMS Commands (from /cms directory)
-```bash
-npm run develop   # Start Strapi in watch mode
-npm run build     # Build Strapi admin panel
-npm run start     # Start Strapi without watch mode
-```
-
 ## Architecture
 
 ### Frontend (Astro)
-- `src/pages/` - Astro pages (index, projects, resume, blog)
-- `src/components/` - Reusable Astro components (Header, Footer, BaseHead)
+- `src/pages/` - Astro pages (index, projects, resume, posts, RSS)
+- `src/components/` - Reusable Astro components (Header, Footer, BaseHead, GlassBackground)
 - `src/layouts/` - Page layouts (BlogPost)
-- `src/lib/strapi.ts` - Strapi API client with typed interfaces for Projects, Resume, BlogPosts
-- `src/content/blog/` - Local MDX blog posts (can be used alongside Strapi blog posts)
+- `src/data/projects.ts` - Static project data with typed interfaces
+- `src/data/resume.ts` - Static resume data with typed interfaces
 - `src/consts.ts` - Site-wide constants (SITE_TITLE, SITE_DESCRIPTION)
 
-### CMS (Strapi at /cms)
-- Self-hosted headless CMS using SQLite by default
-- Admin panel at http://localhost:1337/admin
-- API endpoints consumed by Astro at build time
+### Content (Obsidian Vault)
+- Blog posts live in the Obsidian vault at: `/Users/garretttrott/Sync/ObsidianVault/site-content/`
+- Astro's content collection loader reads `.md` files from this folder at build time
+- The path is configurable via `CONTENT_PATH` env var (see `src/content.config.ts`)
 
-### Content Types (to be created in Strapi)
-- **Projects**: title, slug, description, content, thumbnail, technologies[], githubUrl, liveUrl, order, featured
-- **Resume**: name, title, summary, email, location, linkedin, github, experience[], education[], skills[]
-- **Blog Posts** (optional): title, slug, excerpt, content, coverImage, publishedAt
+### Blog Post Frontmatter Schema
+```yaml
+---
+title: Post Title
+description: A short excerpt
+pubDate: 2026-02-22
+updatedDate: 2026-02-23       # optional
+heroImage: /images/cover.png   # optional
+tags:                          # optional
+  - javascript
+  - astro
+featured: true                 # optional, defaults to false
+---
+```
+
+### Static Data
+- **Projects**: Defined in `src/data/projects.ts` — title, slug, description, technologies, links, etc.
+- **Resume**: Defined in `src/data/resume.ts` — experience, education, skills with typed interfaces
+
+## Content Creation
+
+Write markdown files directly in your Obsidian vault's `site-content/` folder. Include the required frontmatter (title, description, pubDate) and the post will appear on the site at next build.
 
 ## Environment Variables
 
 Copy `.env.example` to `.env` and configure:
-- `STRAPI_URL` - Strapi API URL (default: http://localhost:1337)
-- `STRAPI_API_TOKEN` - Optional API token for protected content
+- `CONTENT_PATH` - (optional) Override the default Obsidian vault content path
 
-## Key Integration Points
+## Deployment
 
-The `src/lib/strapi.ts` file handles all CMS communication:
-- `getProjects()` / `getProject(slug)` - Fetch project data
-- `getResume()` - Fetch resume data with nested experience/education/skills
-- `getBlogPosts()` / `getBlogPost(slug)` - Fetch blog posts from Strapi
-- `getStrapiMediaUrl()` - Convert Strapi media references to full URLs
-
-Pages gracefully handle CMS unavailability by showing placeholder content.
+The site deploys to Coolify at garretttrott.com. The `site-content/` folder from the Obsidian vault must be available at build time on the deployment server.

@@ -4,23 +4,16 @@ import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import GlassBackground from '../../components/GlassBackground.astro';
 import { SITE_TITLE } from '../../consts';
-import { getProjects, getStrapiMediaUrl, type Project } from '../../lib/strapi';
+import { getProjects, type Project } from '../../data/projects';
 
-export async function getStaticPaths() {
-	try {
-		const response = await getProjects();
-		const projects = response.data || [];
-		return projects.map((project: any) => ({
-			params: { slug: project.slug || project.attributes?.slug },
-			props: { project: { ...project, ...project.attributes } },
-		}));
-	} catch (e) {
-		console.error('Failed to get static paths for projects:', e);
-		return [];
-	}
+export function getStaticPaths() {
+	return getProjects().map((project) => ({
+		params: { slug: project.slug },
+		props: { project },
+	}));
 }
 
-const { project } = Astro.props;
+const { project } = Astro.props as { project: Project };
 ---
 
 <!doctype html>
@@ -45,7 +38,7 @@ const { project } = Astro.props;
 				{project.thumbnail && (
 					<div class="aspect-video overflow-hidden rounded-xl mb-8 bg-white/5 border border-white/5">
 						<img
-							src={getStrapiMediaUrl(project.thumbnail) || ''}
+							src={project.thumbnail}
 							alt={project.title}
 							class="w-full h-full object-cover"
 						/>
